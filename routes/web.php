@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('dashboard', function () {
+    $data['title'] = 'Dashboard';
+    return view('admin.dashboard',$data);
+})->name('dashboard');
