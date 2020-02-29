@@ -19,3 +19,4 @@ Route::get('dashboard', function () {
     $data['title'] = 'Dashboard';
     return view('admin.dashboard',$data);
 })->name('dashboard');
+Route::resource('author','AuthorController');
