@@ -33,6 +33,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                @include('layouts.admin._message')
                 @yield('content')
             </div><!-- /.container-fluid -->
         </section>

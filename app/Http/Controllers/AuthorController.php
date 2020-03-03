@@ -42,12 +42,14 @@ class AuthorController extends Controller
         $request->validate([
             'name'=>'required',
             'description'=>'required',
+            'photo' => 'mimes:jpeg,bmp,png',
         ]);
         $data=$request->all();
         if ($request->photo){
             $data['photo']=$this->fileUpload($request->photo);
         }
         Author::create($data);
+        session()->flash('message','Author created successfully');
         return redirect()->route('author.index');
     }
 
@@ -67,7 +69,9 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        $data['author']=$author;
+        $data['title']='Author Profile';
+        return view('admin.author.show',$data);
     }
 
     /**
@@ -78,7 +82,9 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        $data['author']=$author;
+        $data['title']='Update Author';
+        return view('admin.author.edit',$data);
     }
 
     /**
@@ -90,7 +96,21 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'photo' => 'mimes:jpeg,bmp,png',
+        ]);
+        $data['author']=$request->all();
+        if ($request->photo){
+            $data['photo']=$this->fileUpload($request->photo);
+            if ($author->photo && file_exists($author->photo)){
+                unlink($author->photo);
+            }
+        }
+        $author->update($data);
+        session()->flash('message','Author updated successfully');
+        return redirect()->route('author.index');
     }
 
     /**
@@ -101,6 +121,11 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        if ($author->photo && file_exists($author->photo)){
+            unlink($author->photo);
+        }
+        $author->delete();
+        session()->flash('message','Author deleted successfully');
+        return redirect()->route('author.index');
     }
 }

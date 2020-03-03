@@ -15,31 +15,25 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Create new author</h3>
+                    <h3 class="card-title">Edit Author Information</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="{{route('author.store')}}" method="post" enctype="multipart/form-data">
+                <form role="form" action="{{route('author.update',$author->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         @include('admin.author._form')
                     </div>
                     <!-- /.card-body -->
-
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
             <!-- /.card -->
-
-            <!-- Form Element sizes -->
-
-
-
-            </div>
-            <!-- /.card -->
-
         </div>
-        <!--/.col (left) -->
+        <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
 @endsection
