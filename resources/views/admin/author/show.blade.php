@@ -20,7 +20,7 @@
                 <div class="card-body p-0">
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="{{asset($author->photo)}}" width="100%">
+                            <img src="{{asset($author->photo)}}" width="100%" height="350px" style="border-radius:50%;" >
                         </div>
                         <div class="col-md-6">
                             <table class="table table-bordered">

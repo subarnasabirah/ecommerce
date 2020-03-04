@@ -20,3 +20,4 @@ Route::get('dashboard', function () {
     return view('admin.dashboard',$data);
 })->name('dashboard');
 Route::resource('author','AuthorController');
+Route::resource('free_book','FreeBooksController');
