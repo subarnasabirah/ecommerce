@@ -44,19 +44,19 @@ class FreeBooksController extends Controller
             'author_name'=>'required'
         ]);
         $data=$request->all();
-        if ($request->photo){
-            $data['photo']=$this->fileUpload($request->photo);
-        }
         if ($request->file){
-            $data['file']=$this->fileUpload($request->file);
+            $data['file']=$this->fileUpload($request->file,'file');
+        }
+        if ($request->photo){
+            $data['photo']=$this->fileUpload($request->photo,'photo');
         }
         Free_books::create($data);
         session()->flash('message','Author created successfully');
         return redirect()->route('free_book.index');
     }
 
-    private function fileUpload($img){
-        if ($fileType='jpeg'){
+    private function fileUpload($img,$filetype){
+        if ($filetype=='photo'){
             $path='images/free_books';
         }else{
             $path='files/free_books';
