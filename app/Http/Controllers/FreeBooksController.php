@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Category;
 use App\Free_books;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class FreeBooksController extends Controller
      */
     public function index()
     {
-        //
+        $data['title']='Free book list';
+        $data['free_books']=Free_books::with('category','author')->paginate(2);
+        $data['serial']=managePaginationSerial($data['free_books']);
+        return view('admin.free_book.index',$data);
     }
 
     /**
@@ -26,6 +30,8 @@ class FreeBooksController extends Controller
     public function create()
     {
         $data['title']='Add free book';
+        $data['categories']=Category::where('status','Active')->orderBy('name','ASC')->pluck('name','id');
+        $data['authors']=Author::orderBy('name','ASC')->pluck('name','id');
         return view('admin.free_book.create',$data);
     }
 
@@ -41,7 +47,8 @@ class FreeBooksController extends Controller
             'title'=>'required',
             'photo'=>'required|mimes:jpeg,bmp,png',
             'file'=>'required|mimes:pdf,doc',
-            'author_name'=>'required'
+            'author_id'=>'required',
+            'category_id'=>'required'
         ]);
         $data=$request->all();
         if ($request->file){
@@ -61,8 +68,9 @@ class FreeBooksController extends Controller
         }else{
             $path='files/free_books';
         }
-        $img->move($path,$img->getClientOriginalName());
-        $fullpath=$path.'/'.$img->getClientOriginalName();
+        $file_name=time().rand('00000','99999').'.'.$img->getClientOriginalExtension();
+        $img->move($path,$file_name);
+        $fullpath=$path.'/'.$file_name;
         return $fullpath;
     }
 

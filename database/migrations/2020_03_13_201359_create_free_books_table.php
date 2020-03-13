@@ -18,8 +18,10 @@ class CreateFreeBooksTable extends Migration
             $table->string('title');
             $table->text('photo');
             $table->text('file');
-            $table->text('author_name');
-            $table->text('category');
+            $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('authors');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

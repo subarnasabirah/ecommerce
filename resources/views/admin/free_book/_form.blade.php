@@ -1,6 +1,24 @@
 <div class="form-group">
+    <label>Book Category</label>
+    <select class="form-control" name="category_id">
+        <option>Select</option>
+        @foreach($categories as $id=>$category)
+            <option value="{{$id}}">{{$category}}</option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group">
+    <label>Author</label>
+    <select class="form-control" name="author_id">
+        <option>Select</option>
+        @foreach($authors as $id=>$author)
+            <option value="{{$id}}">{{$author}}</option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group">
     <label for="exampleInputEmail1">Title</label>
-    <input type="text" name="title" value="{{old('name',isset($author)?$author->name:null)}}" class="form-control" id="exampleInputEmail1" placeholder="Enter Book Title">
+    <input type="text" name="title" value="{{old('title',isset($free_book)?$free_book->title:null)}}" class="form-control" id="exampleInputEmail1" placeholder="Enter Book Title">
     @error('title')
         <div class="alert alert-danger">{{$message}}</div>
     @enderror
@@ -28,21 +46,6 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="author_name">Author Name</label>
-    <input type="text" name="author_name" value="{{old('author_name',isset($author)?$author->name:null)}}" class="form-control" id="author_name" placeholder="Enter Author's Name">
-    @error('author_name')
-    <div class="alert alert-danger">{{$message}}</div>
-    @enderror
-</div>
 
-<div class="form-group">
-    <label>Book Category</label>
-    <select class="form-control" name="category">
-        <option>option 1</option>
-        <option>option 2</option>
-        <option>option 3</option>
-        <option>option 4</option>
-        <option>option 5</option>
-    </select>
-</div>
+
+
