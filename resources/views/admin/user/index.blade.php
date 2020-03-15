@@ -27,7 +27,6 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Image</th>
                         <th>Gender</th>
                         <th>Actions</th>
 
@@ -41,12 +40,11 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->phone}}</td>
-                            <td>{{$user->image}}</td>
                             <td>{{$user->gender}}</td>
                             <td>
                                 <a href="{{route('user.edit',$user->id)}}" class="btn btn-primary btn-sm">Edit</a>
                                 <a href="{{route('user.show',$user->id)}}" class="btn btn-primary btn-sm">Show</a>
-                                <form action="{{route('user.destroy',$user->id)}}" method="post">
+                                <form action="{{route('user.destroy',$user->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are You confirm?')">Delete</button>
