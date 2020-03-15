@@ -22,3 +22,5 @@ Route::get('dashboard', function () {
 Route::resource('author','AuthorController');
 Route::resource('category','CategoryController');
 Route::resource('free_book','FreeBooksController');
+Route::resource('user','UserController');
+
